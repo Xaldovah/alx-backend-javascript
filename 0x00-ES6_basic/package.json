@@ -1,21 +1,39 @@
 {
-  "name": "0x00-ES6_basic",
+  "name": "0x00-es6_basic",
   "version": "1.0.0",
-  "description": "This is introduction of basic ES6",
-  "main": "index.js",
+  "description": "This is the introduction to es6",
+  "main": "0-constants.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "dev": "babel-node"
   },
-  "jest": {
-    "testEnvironment": "node"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xaldovah/alx-backend-javascript.git"
   },
+  "keywords": [
+    "ES6",
+    "JavaScript",
+    "Jest",
+    "Babel",
+    "ESLint",
+    "Introduction",
+    "Basics"
+  ],
+  "author": "Dennis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xaldovah/alx-backend-javascript/issues"
+  },
+  "homepage": "https://github.com/Xaldovah/alx-backend-javascript#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "babel-jest": "^27.3.1",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.0",
-    "jest": "^27.3.1"
+    "@babel/core": "^7.23.7",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.23.7",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "jest": "^29.7.0"
   }
 }

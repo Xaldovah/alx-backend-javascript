@@ -47,7 +47,15 @@ const director1: Directors = {
 };
 
 
-console.log(teacher1);
-console.log(teacher2);
-console.log(teacher3);
-console.log(director1);
+interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => {
+  const firstLetter = firstName.charAt(0).toUpperCase();
+  const fullName = `${firstLetter}. ${lastName}`;
+  return fullName;
+};
+
+const result = printTeacher('Willis', 'Wright');
+console.log(result);

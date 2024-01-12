@@ -23,16 +23,22 @@ const studentsList: Student[] = [student1, student2];
 
 // Vanilla JavaScript
 
-const table = document.getElementById('studentsTable') as HTMLTableElement | null;
+const table = document.createElement('table');
+const tableBody = document.createElement('tbody');
 
-if (table) {
-  studentsList.forEach((student) => {
-    const row = table.insertRow();
+studentsList.forEach((student) => {
+  const row = document.createElement('tr');
+  
+  const firstNameCell = document.createElement('td');
+  firstNameCell.textContent = student.firstName;
+  row.appendChild(firstNameCell);
 
-    const cell1 = row.insertCell(0);
-    cell1.textContent = student.firstName;
+  const locationCell = document.createElement('td');
+  locationCell.textContent = student.location;
+  row.appendChild(locationCell)
 
-    const cell2 = row.insertCell(1);
-    cell2.textContent = student.location;
-  });
-}
+  tableBody.appendChild(row);
+});
+
+table.appendChild(tableBody);
+document.body.appendChild(table);

@@ -1,35 +1,35 @@
 const http = require('http');
-const { countStudents } = require('node 3-read_file_async');
+const fs = require('fs');
+const countStudents = require('./3-read_file_async');
 
-const server = http.createServer((req, res) => {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-
-	const url = new URL(req.url, `http://${req.headers.host}`);
-	
-	if (url.pathname === '/') {
-		res.end('Hello Holberton School!\n');
-	} else if (url.pathname === '/students') {
-		const dbName = process.argv[2];
-		if (!dbName) {
-			res.end('Error: Database filename not provided');
-			return;
-		}
-
-		countStudents(dbName)
-		.then(() => {
-		})
-		.catch(error => {
-			res.end(error.message);
-		});
-	} else {
-		res.end('Error: Unknown path');
-	}
+const app = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello Holberton School!');
+  } else if (req.url === '/students') {
+    try {
+      countStudents(process.argv[2])
+        .then(data => {
+          res.writeHead(200, { 'Content-Type': 'text/plain' });
+          res.end(`This is the list of our students\n${data}`);
+        })
+        .catch(error => {
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end(error.message);
+        });
+    } catch (error) {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Cannot load the database');
+    }
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not found');
+  }
 });
 
-const PORT = 1245;
-
-server.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
+const port = 1245;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
 
-module.exports = server;
+module.exports = app;

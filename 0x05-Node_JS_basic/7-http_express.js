@@ -1,32 +1,32 @@
 const express = require('express');
-const { countStudents } = require('node 3-read_file_async');
+const countStudents = require('./3-read_file_async');
 
 const app = express();
 
 app.get('/', (req, res) => {
-	res.send('Hello Holberton School!');
+  res.send('Hello Holberton School!');
 });
 
-app.get('/students', (req, res) => {
-	const dbName = process.argv[2];
-	if (!dbName) {
-		res.status(500).send('Error: Database filename not provided');
-		return;
-	}
+app.get('/students', async (req, res) => {
+  if (!process.argv[1]) {
+    console.error('Error: Please provide a database filename as an argument.');
+    res.status(400).send('Missing database filename');
+    return;
+  }
 
-	countStudents(dbName)
-		.then(() => {
-			// do nothing
-		})
-		.catch(error => {
-			res.status(500).send(error.message);
-		});
+  const databaseFile = process.argv[1];
+
+  try {
+    const data = await countStudents(databaseFile);
+    res.send(`This is the list of our students\n${data}`);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
-const PORT = 1245;
-
-app.listen(PORT, () =>  {
-	console.log(`Server running on port ${PORT}`);
+const port = 1245;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
 
 module.exports = app;
